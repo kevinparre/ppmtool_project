@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-// import { t } from 'tar';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProject } from "../../Actions/projectActions";
+
 
 class AddProject extends Component {
     constructor(){
@@ -10,11 +13,23 @@ class AddProject extends Component {
             projectIdentifier: "",
             description: "",
             start_date: "",
-            end_date: ""
+            end_date: "",
+            errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    static getDerivedStateFromProps(nextProps){
+      if (nextProps.errors) {
+        return {
+          errors: nextProps.errors
+        };
+        
+      }  
+      
+
     }
 
     onChange(e) {
@@ -32,10 +47,12 @@ class AddProject extends Component {
 
       };
 
-      console.log(newProject);
+      this.props.createProject(newProject);
 
     }
   render() {
+
+    const { errors } = this.state;
     return (
         <div>
         {
@@ -124,4 +141,16 @@ class AddProject extends Component {
     );
   }
 }
-export default AddProject;
+AddProject.propTypes = {
+  createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { createProject }
+)(AddProject);
