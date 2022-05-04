@@ -21,16 +21,14 @@ class AddProject extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    static getDerivedStateFromProps(nextProps){
+    componentWillReceiveProps(nextProps) {
       if (nextProps.errors) {
-        return {
-          errors: nextProps.errors
-        };
-        
-      }  
+        this.setState({ errors: nextProps.errors });
+      }
+    }
       
 
-    }
+    
 
     onChange(e) {
       this.setState({ [e.target.name]: e.target.value });
@@ -47,7 +45,7 @@ class AddProject extends Component {
 
       };
 
-      this.props.createProject(newProject);
+      this.props.createProject(newProject, this.props.history);
 
     }
   render() {
@@ -82,7 +80,7 @@ class AddProject extends Component {
                       value={this.state.projectName}
                       onChange={this.onChange}
                     />
-                   
+                    <p>{errors.projectName}</p>
                   </div>
                   <br></br>
                   <div className="form-group">
@@ -94,7 +92,9 @@ class AddProject extends Component {
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{errors.projectIdentifier}</p>
                   </div>
+                  <p>{errors.projectIdentifier}</p>
                   <br></br>
                   <div className="form-group">
                     <textarea
@@ -104,6 +104,7 @@ class AddProject extends Component {
                       value={this.state.description}
                       onChange={this.onChange}
                     />
+                    <p>{errors.description}</p>
                   </div>
                   <br></br>
                   <h6>Start Date</h6>
