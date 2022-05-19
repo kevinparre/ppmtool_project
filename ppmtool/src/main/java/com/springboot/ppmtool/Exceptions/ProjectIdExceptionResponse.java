@@ -1,10 +1,10 @@
 package com.springboot.ppmtool.Exceptions;
 
-public class ProjectIDExceptionResponse {
+public class ProjectIdExceptionResponse {
 	
 	private String projectIdentifier;
 
-	public ProjectIDExceptionResponse(String projectIdentifier) {
+	public ProjectIdExceptionResponse(String projectIdentifier) {
 		
 		this.projectIdentifier = projectIdentifier;
 	}
